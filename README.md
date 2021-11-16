@@ -1,4 +1,4 @@
-#### Instructions:
+### Instructions:
 
 1. Run: npm install
 2. Run: npm dev-migration:generate -- migrations_name { Note: generate migration folder and metro-event-db(sqlite) in the root folder }
@@ -6,7 +6,7 @@
 4. Run: npm run serve
 
 
-#### Current api endpoints
+### Current api endpoints
 
 1. Create user POST: /metro/users
 2. Get all users GET: /metro/users
@@ -21,3 +21,11 @@
 ###### Resources:
 
 [Type Orm (ManyToMany, OneToOne, OneToMany, ManyToOne)](https://orkhan.gitbook.io/typeorm/docs)
+
+
+##### Important Files To Consider
+
+1. ormconfig.ts
+2. src/app.service.ts
+3. app.module.ts
+4. all entities/models location: src/metro/entities
