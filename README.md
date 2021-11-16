@@ -9,14 +9,14 @@
 ### Current api endpoints
 
 ###### Users
-1. Create event POST: /metro/events
+1. Login user POST: /metro/login
 2. Create user POST: /metro/users
 3. Get all users GET: /metro/users
 4. Get user by id GET: /metro/users/:id
 5. Update user PATCH: /metro/users/:id
 
 ###### Events
-1. Login user POST: /metro/login
+1. Create event POST: /metro/events
 2: Get all events GET: /metro/events
 3. Get event by id GET: /metro/events/:id
 
@@ -36,4 +36,3 @@
 2. src/app.service.ts
 3. app.module.ts
 4. all entities/models location: src/metro/entities
-5. 
