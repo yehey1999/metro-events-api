@@ -17,7 +17,7 @@
 
 ###### Events
 1. Create event POST: /metro/events
-2: Get all events GET: /metro/events
+2. Get all events GET: /metro/events
 3. Get event by id GET: /metro/events/:id
 
 ###### Samples sa kani na api calls kay naa sa postman, pd ra sa nimo macheck sad kung unsa ang imo ebody sa ilaha src/metro/dto
