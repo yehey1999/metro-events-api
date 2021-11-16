@@ -5,6 +5,7 @@
 3. Run: npm dev-migration:run { populates/updates the metro-event-db }
 4. Run: npm run serve
 
+Note: if mu error ang 2 and 3 tungod sa mga constraints, delete ang metro-event-db og ang migration folder, then repeat 2 and 3.
 
 ### Current api endpoints
 
