@@ -28,7 +28,7 @@ Note: if mu error ang 2 and 3 tungod sa mga constraints, delete ang metro-event-
 
 ###### Resources:
 
-[Type Orm (ManyToMany, OneToOne, OneToMany, ManyToOne)](https://orkhan.gitbook.io/typeorm/docs)
+[Type Orm (ManyToMany, OneToOne, OneToMany, ManyToOne)](https://orkhan.gitbook.io/typeorm/docs), bidirectional
 
 
 ##### Important Files To Consider
