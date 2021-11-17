@@ -1,5 +1,7 @@
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { User } from './user.entity';
+import { Notification } from "./notification.entity";
+import { Review } from "./review.entity";
 
 @Entity()
 export class Event {
@@ -21,10 +23,23 @@ export class Event {
     @Column({ default: 'ongoing' })
     status: string;
 
+    @Column()
+    address: string;
+
     @ManyToOne(() => User, user => user.createdEvents)
     createdBy: User;
 
     @ManyToMany(() => User, user => user.events)
     @JoinTable()
     participants: User[];   
+
+    @OneToMany(() => Notification, notification => notification.event)
+    notifications: Notification[];
+
+    @OneToMany(() => Review, review => review.event)
+    reviews: Review[];
+
+    @CreateDateColumn()
+    createdAt: Date;
+
 }

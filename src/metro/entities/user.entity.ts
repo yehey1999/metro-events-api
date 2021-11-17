@@ -1,5 +1,6 @@
 import { Column, Entity, ManyToMany, JoinTable, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 import { Event } from './event.entity';
+import { Request } from './request.entity';
 
 @Entity()
 export class User {
@@ -30,4 +31,7 @@ export class User {
     @ManyToMany(() => Event, event => event.participants)
     @JoinTable()
     events: Event[];
+
+    @OneToMany(() => Request, request => request.sender)
+    sentRequests: Request[];
 }
