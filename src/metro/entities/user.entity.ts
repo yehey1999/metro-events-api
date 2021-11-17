@@ -25,7 +25,7 @@ export class User {
     grantedAt: string;
 
     @OneToMany(() => Event, event => event.createdBy)
-    createdEvents: Event;
+    createdEvents: Event[];
 
     @ManyToMany(() => Event, event => event.participants)
     @JoinTable()

@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { CreateEventDto } from './dto/create-event.dto';
 import { LoginUserDto } from './dto/login-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { MetroService } from './metro.service';
 
 @Controller('metro')
@@ -20,10 +21,34 @@ export class MetroController {
     return users;
   }
 
+  @Get('users/:id')
+  async getUser(@Param('id') id) {
+    const user = await this.metroService.getUser(id);
+    return user;
+  }
+
   @Post('users')
   async createUser(@Body() createUserDto: CreateUserDto) {
     const user = await this.metroService.createUser(createUserDto);
     return user;
+  }
+
+  @Patch('users/:id')
+  async updateUser(@Param('id') id, @Body() updateUserDto: UpdateUserDto) {
+    const user = await this.metroService.updateUser(id, updateUserDto);
+    return user;
+  }
+
+  @Get('events')
+  async getAllEvents() {
+    const events = await this.metroService.getAllEvents();
+    return events;
+  }
+
+  @Get('events/:id')
+  async getEvent(@Param('id') id) {
+    const event = await this.metroService.getEvent(id);
+    return event;
   }
 
   @Post('events')
