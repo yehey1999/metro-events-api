@@ -47,7 +47,7 @@ export class MetroController {
   }
 
   @Post('requests')
-  async createRequest(createRequestDto: CreateRequestDto) {
+  async createRequest(@Body() createRequestDto: CreateRequestDto) {
     const { type, sender, event } = createRequestDto;
     switch (type) {
       case "join event":
