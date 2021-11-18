@@ -74,7 +74,7 @@ export class MetroService {
   }
   
   getAllEvents(): Promise<Event[]>  {
-    return this.eventsRepository.find({ relations: ["createdBy", "participants"] });
+    return this.eventsRepository.find({ relations: ["createdBy", "participants", "requests"] });
   }
 
   getEvent(eventId: number): Promise<Event> {

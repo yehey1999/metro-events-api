@@ -26,7 +26,7 @@ export class AppService {
       password: '54753fb7f1aa43958bc8c365e22c8e1696a6c2a0422ba80c87844513eb5dab7d',
       database: 'daqliam7j4b1vj',
       entities: [ User, Event, Review, Request ],
-      synchronize: false,
+      synchronize: true,
       // multipleStatements: true,
       migrations: ["dist/migration/*.js"],
       cli: {
