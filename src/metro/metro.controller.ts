@@ -49,9 +49,10 @@ export class MetroController {
   @Post('requests')
   async createRequest(@Body() createRequestDto: CreateRequestDto) {
     const { type, sender, event } = createRequestDto;
+    let request = null;
     switch (type) {
       case "join event":
-        this.metroService.createJoinEventRequest(createRequestDto);
+        request = this.metroService.createJoinEventRequest(createRequestDto);
         break;
       case "request to organizer":
         break;
@@ -60,6 +61,7 @@ export class MetroController {
       default:
         break;
     }
+    return request;
     // const requests = await this.metroService.createRequest();
   }
 
