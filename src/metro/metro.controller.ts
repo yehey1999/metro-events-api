@@ -51,7 +51,7 @@ export class MetroController {
     const { type, sender, event } = createRequestDto;
     switch (type) {
       case "join event":
-        
+        this.metroService.createJoinEventRequest(createRequestDto);
         break;
       case "request to organizer":
         break;
