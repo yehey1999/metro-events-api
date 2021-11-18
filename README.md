@@ -11,7 +11,7 @@ Note: if mu error ang 2 and 3 tungod sa mga constraints, delete ang metro-event-
 
 ###### Base URL: http://localhost:3000/metro
 
-###### Hosted server api: [Name](https://metro-event-api.herokuapp.com/metro)
+###### Hosted server api: [metro-event-api](https://metro-event-api.herokuapp.com/metro)
 
 ###### Users
 1. Login user POST: /login
