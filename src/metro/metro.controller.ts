@@ -3,6 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { CreateEventDto } from './dto/create-event.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateRequestDto } from './dto/create-request-dto';
 import { MetroService } from './metro.service';
 
 @Controller('metro')
@@ -45,10 +46,22 @@ export class MetroController {
     return requests;
   }
 
-  // @Post('requests')
-  // async createRequest(createRequest: CreateRequestDto) {
-    
-  // }
+  @Post('requests')
+  async createRequest(createRequestDto: CreateRequestDto) {
+    const { type, sender, event } = createRequestDto;
+    switch (type) {
+      case "join event":
+        
+        break;
+      case "request to organizer":
+        break;
+      case "request to admin":
+        break; 
+      default:
+        break;
+    }
+    // const requests = await this.metroService.createRequest();
+  }
 
   @Get('events')
   async getAllEvents() {
