@@ -1,9 +1,9 @@
 import { BadRequestException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { create } from 'domain';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
+import { Request } from './entities/request.entity';
 import { Event } from './entities/event.entity';
 import { CreateEventDto } from './dto/create-event.dto';
 import { LoginUserDto } from './dto/login-user.dto';
@@ -16,6 +16,8 @@ export class MetroService {
     private usersRepository: Repository<User>,
     @InjectRepository(Event)
     private eventsRepository: Repository<Event>,
+    @InjectRepository(Request)
+    private requestsRepository: Repository<Request>,
   ) {}
 
   getUsers(): Promise<User[]> {
@@ -48,6 +50,10 @@ export class MetroService {
     user.type = type;
     return this.usersRepository.save(user);
   }
+
+  getRequests(): Promise<Request[]> {
+    return  this.requestsRepository.find({relations: ["sender", "event"] });
+  };
   
   getAllEvents(): Promise<Event[]>  {
     return this.eventsRepository.find({ relations: ["createdBy", "participants"] });

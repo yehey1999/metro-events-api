@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { SqliteConnectionOptions } from 'typeorm/driver/sqlite/SqliteConnectionOptions';
 import { User } from "./metro/entities/user.entity";
 import { Event } from "./metro/entities/event.entity";
-import { Notification } from './metro/entities/notification.entity';
 import { Review } from './metro/entities/review.entity';
 import { Request } from './metro/entities/request.entity';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
@@ -26,7 +25,7 @@ export class AppService {
       username: 'vetuelzgfedned',
       password: '54753fb7f1aa43958bc8c365e22c8e1696a6c2a0422ba80c87844513eb5dab7d',
       database: 'daqliam7j4b1vj',
-      entities: [ User, Event, Notification, Review, Request ],
+      entities: [ User, Event, Review, Request ],
       synchronize: false,
       // multipleStatements: true,
       migrations: ["dist/migration/*.js"],

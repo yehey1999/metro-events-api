@@ -39,6 +39,17 @@ export class MetroController {
     return user;
   }
 
+  @Get('requests')
+  async getRequests() {
+    const requests = await this.metroService.getRequests();
+    return requests;
+  }
+
+  // @Post('requests')
+  // async createRequest(createRequest: CreateRequestDto) {
+    
+  // }
+
   @Get('events')
   async getAllEvents() {
     const events = await this.metroService.getAllEvents();
