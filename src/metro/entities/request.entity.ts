@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToMany, JoinTable, PrimaryGeneratedColumn, OneToMany, ManyToOne, CreateDateColumn, UpdateDateColumn, OneToOne } from "typeorm";
 import { User } from "./user.entity";
-import { Notification } from "./notification.entity";
+import { Event } from "./event.entity";
 
 @Entity()
 export class Request {
@@ -13,6 +13,12 @@ export class Request {
     @Column()
     details: string;
 
+    @Column()
+    type: string;
+
+    @Column({ default: 'reviewing' })
+    status: string;
+
     @CreateDateColumn()
     createdAt: Date;
 
@@ -22,6 +28,7 @@ export class Request {
     @ManyToOne(() => User, user => user.sentRequests)
     sender: User;
 
-    @OneToOne(() => Notification, notification => notification.request)
-    notification: Notification;
+    @ManyToOne(() => Event, event => event.requests)
+    event: Event;
+
 }
