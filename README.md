@@ -9,17 +9,30 @@ Note: if mu error ang 2 and 3 tungod sa mga constraints, delete ang metro-event-
 
 ### Current api endpoints
 
+Base URL: http://localhost:3000/metro
+
 ###### Users
-1. Login user POST: /metro/login
-2. Create user POST: /metro/users
-3. Get all users GET: /metro/users
-4. Get user by id GET: /metro/users/:id
-5. Update user PATCH: /metro/users/:id
+1. Login user POST: /login
+2. Create user POST: /users
+3. Get all users GET: /users
+4. Get user by id GET: /users/:id
+5. Update user PATCH: /users/:id
+6. Get user sent requests GET: /users/:id/requests
 
 ###### Events
-1. Create event POST: /metro/events
-2. Get all events GET: /metro/events
-3. Get event by id GET: /metro/events/:id
+1. Create event POST: /events
+2. Get all events GET: /events
+3. Get event by id GET: /events/:id
+4. Get event requests GET: /events/:id/requests
+
+##### Requests
+1. Create Request (type: ['join event' || 'request to organizer || request to admin]') POST: /metro/requests/
+2. Update Request POST: /requests/
+3. Get All Requests GET: /requests/
+
+##### Reviews
+1. Create Event Review POST: /reviews/events/:id
+2. Get All Event Reviews GET: /reviews/events/:id
 
 ###### Samples sa kani na api calls kay naa sa postman, pd ra sa nimo macheck sad kung unsa ang imo ebody sa ilaha src/metro/dto
 
