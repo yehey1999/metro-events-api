@@ -4,6 +4,7 @@
 
 # dev migrations
 /src/migration
+/migration
 
 # sqlite db
 *.db
