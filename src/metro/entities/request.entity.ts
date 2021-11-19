@@ -16,6 +16,9 @@ export class Request {
     @Column()
     type: string;
 
+    @Column({ default: 'reviewing' })
+    status: string;
+
     @CreateDateColumn()
     createdAt: Date;
 

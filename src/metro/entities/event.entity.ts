@@ -29,7 +29,7 @@ export class Event {
     @ManyToOne(() => User, user => user.createdEvents)
     createdBy: User;
 
-    @ManyToMany(() => User, user => user.events)
+    @ManyToMany(() => User, user => user.events, { cascade: true })
     @JoinTable()
     participants: User[];   
 

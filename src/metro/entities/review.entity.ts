@@ -10,8 +10,8 @@ export class Review {
     @Column()
     comment: string;
 
-    @Column()
-    user: string;
+    @ManyToOne(() => User)
+    user: User;
 
     @CreateDateColumn()
     createdAt: Date;

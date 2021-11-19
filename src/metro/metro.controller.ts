@@ -5,6 +5,8 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateRequestDto } from './dto/create-request-dto';
 import { MetroService } from './metro.service';
+import { UpdateRequestDto } from './dto/update-request.dto';
+import { CreateReviewDto } from './dto/create-review.dto';
 
 @Controller('metro')
 export class MetroController {
@@ -16,10 +18,24 @@ export class MetroController {
     return user;
   }
   
+  /////// users:start
+  // 
+  // create user
+  // get all users
+  // get user by id
+  // update user
+  // get user sent requests
+
   @Get('users')
   async getUsers() {
     const users = await this.metroService.getUsers();
     return users;
+  }
+
+  @Get('users/:id/requests')
+  async getUserRequests(@Param('id') id) {
+    const requests = await this.metroService.getUserSentRequests(id);
+    return requests;
   }
 
   @Get('users/:id')
@@ -39,6 +55,14 @@ export class MetroController {
     const user = await this.metroService.updateUser(id, updateUserDto);
     return user;
   }
+  /////// users:end
+
+
+  /////// requests:start
+  //
+  // get all requests
+  // create request (join event, request to admin/organizer)
+  // update request (join event, request to admin/organizer)
 
   @Get('requests')
   async getRequests() {
@@ -48,22 +72,36 @@ export class MetroController {
 
   @Post('requests')
   async createRequest(@Body() createRequestDto: CreateRequestDto) {
-    const { type, sender, event } = createRequestDto;
+    const { type } = createRequestDto;
     let request = null;
     switch (type) {
       case "join event":
         request = this.metroService.createJoinEventRequest(createRequestDto);
         break;
       case "request to organizer":
-        break;
       case "request to admin":
+        request = this.metroService.createUpgradeAccountRequest(createRequestDto);
         break; 
       default:
         break;
     }
     return request;
-    // const requests = await this.metroService.createRequest();
   }
+
+  @Patch('requests/:id')
+  async updateRequest(@Param('id') id, @Body() updateRequestDto: UpdateRequestDto) {
+    const user = await this.metroService.updateRequest(id, updateRequestDto);
+    return user;
+  }
+  /////// requests:end
+
+
+  /////// events:start
+  //
+  // get all events
+  // get event information
+  // get all request for specific event
+  // create event
 
   @Get('events')
   async getAllEvents() {
@@ -71,7 +109,13 @@ export class MetroController {
     return events;
   }
 
-  @Get('events/:id')
+  @Get('events/:id/requests')
+  async getEventRequests(@Param('id') id) {
+    const event = await this.metroService.getEventRequests(id);
+    return event;
+  }
+
+  @Get('events/:id')  
   async getEvent(@Param('id') id) {
     const event = await this.metroService.getEvent(id);
     return event;
@@ -82,5 +126,24 @@ export class MetroController {
     const user = await this.metroService.createEvent(createEventDto);
     return user;
   }
+  /////// events:end
+
+
+  /////// review:start
+  // 
+  // get all event reviews
+  // create event review
+  @Get('reviews/events/:id')
+  async getEventReviews(@Param('id') id) {
+    const reviews = await this.metroService.getEventReview(id);
+    return reviews;
+  }
+
+  @Post('reviews/events/:id')
+  async createEventReview(@Param('id') id, @Body() createReviewDto: CreateReviewDto) {
+    const review = await this.metroService.createEventReview(id, createReviewDto);
+    return review;
+  }
+  /////// review:end 
   
 }
