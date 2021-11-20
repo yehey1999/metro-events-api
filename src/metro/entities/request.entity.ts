@@ -29,6 +29,6 @@ export class Request {
     sender: User;
 
     @ManyToOne(() => Event, event => event.requests)
-    event: Event;
+    eventRequested: Event;
 
 }

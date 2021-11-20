@@ -33,7 +33,7 @@ export class Event {
     @JoinTable()
     participants: User[];   
 
-    @OneToMany(() => Request, request => request.event)
+    @OneToMany(() => Request, request => request.eventRequested)
     requests: Request[];
 
     @OneToMany(() => Review, review => review.event)

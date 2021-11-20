@@ -60,12 +60,12 @@ export class MetroService {
   }
 
   async getUserSentRequests(userId: number): Promise<Request[]> {
-    const user = await this.usersRepository.findOne({ where: { id: userId }, relations: ["sentRequests"] });
+    const user = await this.usersRepository.findOne({ where: { id: userId }, relations: ["sentRequests", "sentRequests.sender", "sentRequests.eventRequested"] });
     return user.sentRequests;
   }
 
   async getUserCreatedEvents(userId: number): Promise<Event[]> {
-    const user = await this.usersRepository.findOne({ where: { id: userId }, relations: ["createdEvents"] });
+    const user = await this.usersRepository.findOne({ where: { id: userId }, relations: ["createdEvents", "createdEvents.requests", "createdEvents.requests.sender", "createdEvents.requests.eventRequested"] });
     return user.createdEvents;
   }
 
@@ -100,7 +100,7 @@ export class MetroService {
       type: createRequestDto.type
     });
     request.sender = senderUser;
-    request.event = eventToJoin;
+    request.eventRequested = eventToJoin;
     return this.requestsRepository.save(request);
   }
 
@@ -122,7 +122,7 @@ export class MetroService {
     switch(type) {
       case 'join event':
         request.status = status;
-        const eventToJoin = await this.eventsRepository.findOne({ where: { id: request.event.id }, relations: ['participants'] });
+        const eventToJoin = await this.eventsRepository.findOne({ where: { id: request.eventRequested.id }, relations: ['participants'] });
         const participant = await this.usersRepository.findOne({ id: request.sender.id });
         console.log("Here 1");
         eventToJoin.participants.push(participant);
