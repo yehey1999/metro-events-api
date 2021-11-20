@@ -25,6 +25,7 @@ Base URL: http://localhost:3000/metro
 2. Get all events GET: /events
 3. Get event by id GET: /events/:id
 4. Get event requests GET: /events/:id/requests
+5. Update event (for cancellation) PATCH: /events/:id
 
 ##### Requests
 1. Create Request (type: ['join event' || 'request to organizer || request to admin]') POST: /metro/requests/
