@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { CreateEventDto } from './dto/create-event.dto';
 import { LoginUserDto } from './dto/login-user.dto';
@@ -35,6 +35,12 @@ export class MetroController {
   @Get('users/:id/requests')
   async getUserRequests(@Param('id') id) {
     const requests = await this.metroService.getUserSentRequests(id);
+    return requests;
+  }
+
+  @Get('users/:id/created-events')
+  async getUserCreatedEvents(@Param('id') id) {
+    const requests = await this.metroService.getUserCreatedEvents(id);
     return requests;
   }
 
@@ -125,6 +131,12 @@ export class MetroController {
   async createEvent(@Body() createEventDto: CreateEventDto) {
     const user = await this.metroService.createEvent(createEventDto);
     return user;
+  }
+  
+  @Delete('events/:id')  
+  async deleteEvent(@Param('id') id) {
+    const event = await this.metroService.deleteEvent(id);
+    return event;
   }
   /////// events:end
 

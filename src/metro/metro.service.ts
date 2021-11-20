@@ -29,6 +29,7 @@ export class MetroService {
   async loginUser(loginUserDto: LoginUserDto): Promise<User> {
     const { email, password } = loginUserDto;
     const user = await this.usersRepository.findOne({ where: { email }, relations: ["createdEvents", "events", "sentRequests"] });
+    // const user = await this.usersRepository.findOne({ where: { email } });
     if (user?.email === email && user?.password === password) {
       return user;
     }
@@ -61,6 +62,11 @@ export class MetroService {
   async getUserSentRequests(userId: number): Promise<Request[]> {
     const user = await this.usersRepository.findOne({ where: { id: userId }, relations: ["sentRequests"] });
     return user.sentRequests;
+  }
+
+  async getUserCreatedEvents(userId: number): Promise<Event[]> {
+    const user = await this.usersRepository.findOne({ where: { id: userId }, relations: ["createdEvents"] });
+    return user.createdEvents;
   }
 
   async updateUser(userId: number, updateUser: UpdateUserDto): Promise<User> {
@@ -145,6 +151,7 @@ export class MetroService {
   // get event information
   // get all request for specific event
   // create event
+  // delete event
 
   getAllEvents(): Promise<Event[]>  {
     return this.eventsRepository.find({ relations: ["createdBy", "participants", "requests", "reviews"] });
@@ -166,6 +173,12 @@ export class MetroService {
     const event = this.eventsRepository.create({ ...createEventDto });
     event.createdBy = user;
     return this.eventsRepository.save(event);
+  }
+
+  async deleteEvent(eventId: number): Promise<Event> {
+    const _event = this.eventsRepository.findOne({ id: eventId });
+    await this.eventsRepository.delete({ id: eventId });
+    return _event;
   }
   /////// events:end
 
