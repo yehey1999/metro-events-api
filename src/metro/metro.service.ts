@@ -12,6 +12,7 @@ import { CreateRequestDto } from './dto/create-request-dto';
 import { UpdateRequestDto } from './dto/update-request.dto';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { Review } from './entities/review.entity';
+import { UpdateEventDto } from './dto/update-event.dto';
 
 @Injectable()
 export class MetroService {
@@ -176,6 +177,14 @@ export class MetroService {
     delete createEventDto['createdByUserId'];
     const event = this.eventsRepository.create({ ...createEventDto });
     event.createdBy = user;
+    return this.eventsRepository.save(event);
+  }
+
+  async updateEvent(id: number, updateEventDto: UpdateEventDto): Promise<Event> {
+    const { status } = updateEventDto;
+    const event = await this.eventsRepository.findOne({where: { id: id }});
+    event.status = status; 
+    console.log(event);
     return this.eventsRepository.save(event);
   }
 

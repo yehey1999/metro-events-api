@@ -7,6 +7,7 @@ import { CreateRequestDto } from './dto/create-request-dto';
 import { MetroService } from './metro.service';
 import { UpdateRequestDto } from './dto/update-request.dto';
 import { CreateReviewDto } from './dto/create-review.dto';
+import { UpdateEventDto } from './dto/update-event.dto';
 
 @Controller('metro')
 export class MetroController {
@@ -130,6 +131,12 @@ export class MetroController {
   @Get('events/:id')  
   async getEvent(@Param('id') id) {
     const event = await this.metroService.getEvent(id);
+    return event;
+  }
+
+  @Patch('events/:id')
+  async updateEvent(@Param('id') id, @Body() updateEventDto: UpdateEventDto) {
+    const event = await this.metroService.updateEvent(id, updateEventDto);
     return event;
   }
 
