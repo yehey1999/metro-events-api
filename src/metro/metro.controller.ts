@@ -117,8 +117,14 @@ export class MetroController {
 
   @Get('events/:id/requests')
   async getEventRequests(@Param('id') id) {
-    const event = await this.metroService.getEventRequests(id);
-    return event;
+    const requests = await this.metroService.getEventRequests(id);
+    return requests;
+  }
+
+  @Get('events/:id/participants')
+  async getEventParticipants(@Param('id') id) {
+    const participants = await this.metroService.getEventParticipants(id);
+    return participants;
   }
 
   @Get('events/:id')  

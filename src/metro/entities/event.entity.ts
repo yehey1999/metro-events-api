@@ -29,7 +29,7 @@ export class Event {
     @ManyToOne(() => User, user => user.createdEvents)
     createdBy: User;
 
-    @ManyToMany(() => User, user => user.events, { cascade: true })
+    @ManyToMany(() => User, user => user.events)
     @JoinTable()
     participants: User[];   
 
@@ -37,7 +37,7 @@ export class Event {
     requests: Request[];
 
     @OneToMany(() => Review, review => review.event)
-    reviews: Review[];
+    reviews: Review[];  
 
     @CreateDateColumn()
     createdAt: Date;

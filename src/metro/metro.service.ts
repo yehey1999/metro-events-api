@@ -85,7 +85,7 @@ export class MetroService {
   // update request (join event, request to admin/organizer)
 
   getRequests(): Promise<Request[]> {
-    return  this.requestsRepository.find({relations: ["sender", "event"] });
+    return  this.requestsRepository.find({relations: ["sender", "eventRequested"] });
   };
 
   async createJoinEventRequest(createRequestDto: CreateRequestDto): Promise<Request> {
@@ -118,23 +118,22 @@ export class MetroService {
   
   async updateRequest(id: number, updateRequestDto: UpdateRequestDto): Promise<Request> {
     const { type, status } = updateRequestDto;
-    const request = await this.requestsRepository.findOne({where: { id: id }, relations: ['sender', 'event']});
+    const request = await this.requestsRepository.findOne({where: { id: id }, relations: ['sender', 'eventRequested']});
     switch(type) {
       case 'join event':
         request.status = status;
-        const eventToJoin = await this.eventsRepository.findOne({ where: { id: request.eventRequested.id }, relations: ['participants'] });
-        const participant = await this.usersRepository.findOne({ id: request.sender.id });
-        console.log("Here 1");
-        eventToJoin.participants.push(participant);
-        console.log("Here 2");
-        await this.eventsRepository.save(eventToJoin);
-        console.log("Here 3");
+        if (status === "accepted") {
+          const eventToJoin = await this.eventsRepository.findOne({ where: { id: request.eventRequested.id }, relations: ['participants'] });
+          const participant = await this.usersRepository.findOne({ id: request.sender.id });
+          eventToJoin.participants.push(participant);
+          await this.eventsRepository.save(eventToJoin);
+        }
         break;
         case "request to organizer":
         case "request to admin":
           request.status = status;
           const user = await this.usersRepository.findOne({ id: request.sender.id });
-          user.type = type;
+          user.type = type === "request to organizer" ? "organizer" : "admin";
           await this.usersRepository.save(user);
           break; 
         default:
@@ -164,6 +163,11 @@ export class MetroService {
   async getEventRequests(eventId: number): Promise<Request[]> {
     const event = await this.eventsRepository.findOne({ where: { id: eventId }, relations: ["createdBy", "participants", "requests", "requests.sender"] });
     return event.requests;
+  }
+
+  async getEventParticipants(eventId: number): Promise<User[]> {
+    const event = await this.eventsRepository.findOne({ where: { id: eventId }, relations: ["participants"] });
+    return event.participants;
   }
 
   async createEvent(createEventDto: CreateEventDto): Promise<Event> {

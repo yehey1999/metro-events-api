@@ -29,7 +29,6 @@ export class User {
     createdEvents: Event[];
 
     @ManyToMany(() => Event, event => event.participants)
-    @JoinTable()
     events: Event[];
 
     @OneToMany(() => Request, request => request.sender)
